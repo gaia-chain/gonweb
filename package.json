@@ -1,0 +1,49 @@
+{
+  "name": "gonweb",
+  "version": "1.0.1",
+  "description": "JavaScript SDK that encapsulates the GON HTTP API",
+  "main": "dist/GonWeb.node.js",
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "axios": "^0.19.0",
+    "babel-runtime": "^6.26.0",
+    "bignumber.js": "^7.2.1",
+    "elliptic": "^6.4.1",
+    "eth-crypto": "^1.8.0",
+    "ethereumjs-util": "^7.0.5",
+    "ethers": "^4.0.7",
+    "injectpromise": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-minify-webpack-plugin": "^0.3.1",
+    "babel-plugin-istanbul": "^5.0.1",
+    "babel-plugin-source-map-support": "^2.0.1",
+    "babel-preset-env": "^1.7.0",
+    "karma": "^5.2.2",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^4.0.1",
+    "karma-mocha": "^2.0.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "scripts": {
+    "dev": "./node_modules/.bin/webpack --mode development",
+    "build": "npm run clean && webpack --config webpack.prod.js --progress --colors",
+    "clean": "rimraf dist",
+    "des": "./node_modules/.bin/webpack-dev-server",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "woodypawn",
+  "license": "MIT",
+  "repository": "https://github.com/gaia-chain/gonweb"
+}

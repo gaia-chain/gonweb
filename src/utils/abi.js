@@ -38,7 +38,35 @@ export function decodeParams(names, types, output, ignoreMethodHash) {
         return obj;
     }, names.length ? {} : []);
 }
+export function decodeOutput(data){
+    if(!data.parameter.abi){
+        throw new Error('abi does not exist');
+    }
+    let abi = data.parameter.abi;
+    if(!GonWeb.utils.isObject(abi)){
+        abi = JSON.parse(abi)
+    }
+    let func = data.parameter.function;
+    let outputs = []
+    abi.forEach((item) => {
+        if(item.name === func){
+            outputs = item.outputs;
+        }
+    })
+    if(!outputs.length === 0){
+        throw new Error('function does not exist');
+    }
+    let output = data.result;
+    const names = outputs.map(({name}) => name).filter(name => !!name);
+    const types = outputs.map(({type}) => type);
+    return abiCoder.decode(types, output).reduce((obj, arg, index) => {
+        if (names.length)
+            obj[names[index]] = arg;
+        else obj.push(arg);
 
+        return obj;
+    }, names.length ? {} : []);
+};
 export function encodeParams(types, values) {
 
     for (let i = 0; i < types.length; i++) {

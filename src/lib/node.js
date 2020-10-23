@@ -134,16 +134,16 @@ export default class Node {
         }).catch(err => callback(err));
     }
 
-    async sign(transaction = false, privateKey = this.gonWeb.defaultPrivateKey, callback = false) {
+    async sign(transaction = false, privateKey = this.gonWeb.defaultPrivateKey, indexes = [0], callback = false) {
 
         if (!callback)
-            return this.injectPromise(this.sign, transaction, privateKey);
+            return this.injectPromise(this.sign, transaction, privateKey, indexes);
         if (!utils.isObject(transaction))
             return callback('Invalid transaction provided');
 
         try {
             return callback(null,
-                {rawData:await utils.crypto.signTransaction(transaction, privateKey)}
+                {rawData:await utils.crypto.signTransaction(transaction, privateKey, indexes)}
             );
         } catch (ex) {
             callback(ex);

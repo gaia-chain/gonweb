@@ -1,6 +1,6 @@
 {
   "name": "gonweb",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "JavaScript SDK that encapsulates the GON HTTP API",
   "main": "dist/GonWeb.node.js",
   "dependencies": {

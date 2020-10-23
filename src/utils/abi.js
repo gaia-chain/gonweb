@@ -60,6 +60,12 @@ export function decodeOutput(data){
     const names = outputs.map(({name}) => name).filter(name => !!name);
     const types = outputs.map(({type}) => type);
     return abiCoder.decode(types, output).reduce((obj, arg, index) => {
+        if (types[index] == 'address')
+            arg = GonWeb.toDecimal(arg);
+
+        if(arg._ethersType && arg._ethersType === 'BigNumber'){
+            arg = GonWeb.toDecimal(arg._hex);
+        }
         if (names.length)
             obj[names[index]] = arg;
         else obj.push(arg);

@@ -64,7 +64,7 @@ export function decodeBase58Address(base58Sting) {
 //         transaction.signature = [signature];
 //     return transaction;
 // }
-export async function signTransaction(txInfo, privateKey, parentIndex = 0) {
+export async function signTransaction(txInfo, privateKey, indexes = [0], parentIndex = 0) {
 
     if(privateKey === ''){
         throw new Error("Invalid privateKey provided");
@@ -106,7 +106,7 @@ export async function signTransaction(txInfo, privateKey, parentIndex = 0) {
         txInfo.gasPrice,
     ]).toString("hex");
     const signature = EthCrypto.sign(privateKey, txHash);
-    const signerInfo = await getSignerInfo(signature, parentIndex, txInfo.chainId);
+    const signerInfo = await getSignerInfo(signature, parentIndex, txInfo.chainId, indexes);
     const list = [
         txInfo.gasAssetId,
         txInfo.gasPrice,
@@ -154,8 +154,8 @@ export function baToJSON (ba) {
     }
   }
 
-export async function getSignerInfo(signInfo, parentIndex ,chainId) {
-    const multiSigInfos = [{ signInfo, indexes: [0] }];
+export async function getSignerInfo(signInfo, parentIndex ,chainId, indexes) {
+    const multiSigInfos = [{ signInfo, indexes: indexes }];
     const sign = { parentIndex, signData: [] };
     for (const signInfo of multiSigInfos) {
       const rsv = getRSV(signInfo.signInfo, chainId);
